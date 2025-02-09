@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Prompt the user to enter the name of an African country for which they want to analyze humidity data
+echo "What African country do you want to check its humidity?"
+read country_name
+
+#This Defines the path to the input CSV file containing satellite temperature data
+input="/home/attorney/lab-1_sateliteDataAnalysis/raw_data/satelite_temperature_data.csv"
+
+# Defines the path to the output CSV file where the humidity data for the specified country will be stored
+output="/home/attorney/lab-1_sateliteDataAnalysis/analyzed_data/humidity_data_${country_name}.csv"
+
+# We Filtered the input data to include only rows corresponding to the specified country,
+# then sort these rows by the humidity values (assumed to be in the 4th column) in descending order.
+# The sorted data is saved to the output file.
+grep "$country_name" "$input" | sort -t, -k4,4nr > "$output"
+
+# Confirm to the user that the filtered humidity data has been saved to the specified output file
+echo "Filtered humidity data for $country_name has been saved to $output"
+
